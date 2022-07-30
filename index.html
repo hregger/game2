@@ -1,0 +1,67 @@
+<canvas id="ctx" width="500px" height="500px" style="border: solid 1px;"></canvas>
+<script>
+var ctx = document.getElementById('ctx').getContext('2d')
+ctx.font = '30px Arial';
+var reka = {
+	x:50,
+	y:Math.round(Math.random() * 451) ,
+	x2:35,
+	y2:125,
+}
+var maj = {
+	x:410 ,
+	y:0 ,
+	x2:40,
+	y2:40,
+	//speedx:-3,
+	speedx:  2,
+speedy: -1+ Math.random() * 2,
+}
+var kartinka = {}
+kartinka._1 = new Image()
+kartinka._1.src = 'red.png'
+
+document.onkeydown = function(event){
+	/*
+if(event.keyCode === 68){
+reka.x+=5
+}
+if(event.keyCode === 65){
+reka.x-=5
+}
+*/
+if(event.keyCode === 87){
+reka.y-=5
+}
+if(event.keyCode === 83){
+reka.y+=5
+}
+}
+setInterval(function(){
+	ctx.clearRect(0,0,500,500)
+	ctx.fillRect(reka.x,reka.y-125,reka.x2,reka.y2)
+	ctx.save()
+ctx.fillStyle='#5acc9a'
+	ctx.fillText('управление кнопками: S, W.',30,30)
+	ctx.restore()
+ctx.drawImage(kartinka._1,maj.x+40,maj.y,maj.x2,maj.y2)
+if (reka.x===maj.x) {
+	maj.x += 23
+}
+
+if (maj.x > 460) {
+	maj.speedx = -maj.speedx
+}
+if (maj.y < 0) {
+	maj.speedy = -maj.speedy
+}
+if (maj.y > 420) {
+	maj.speedy = -maj.speedy
+}
+if (maj.x < reka.x && maj.y < reka.y && maj.y > reka.y -125) {
+	maj.speedx = -maj.speedx
+}
+maj.x +=maj.speedx
+maj.y +=maj.speedy
+},1000/30)
+</script>
